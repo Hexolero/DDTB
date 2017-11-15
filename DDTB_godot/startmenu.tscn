@@ -1,6 +1,26 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://startbutton.gd" type="Script" id=1]
+[ext_resource path="res://images/night_background.tex" type="Texture" id=2]
+[ext_resource path="res://rooms/room_plateau_4.tscn" type="PackedScene" id=3]
+[ext_resource path="res://images/campfire_16x16.tex" type="Texture" id=4]
+
+[sub_resource type="Animation" id=1]
+
+resource/name = "fire"
+length = 1.0
+loop = true
+step = 0.25
+tracks/0/type = "value"
+tracks/0/path = NodePath("campfire_sprite:frame")
+tracks/0/interp = 1
+tracks/0/imported = false
+tracks/0/keys = {
+"times": FloatArray( 0, 0.25, 0.5, 0.75, 1 ),
+"transitions": FloatArray( 1, 1, 1, 1, 1 ),
+"update": 1,
+"values": [ 0, 1, 2, 3, 0 ]
+}
 
 [node name="root" type="Control"]
 
@@ -19,10 +39,10 @@ focus/ignore_mouse = false
 focus/stop_mouse = true
 size_flags/horizontal = 2
 size_flags/vertical = 2
-margin/left = 350.0
-margin/top = 450.0
-margin/right = 450.0
-margin/bottom = 500.0
+margin/left = 336.0
+margin/top = 328.0
+margin/right = 432.0
+margin/bottom = 376.0
 toggle_mode = false
 enabled_focus_mode = 2
 shortcut = null
@@ -46,6 +66,39 @@ uppercase = true
 percent_visible = 1.0
 lines_skipped = 0
 max_lines_visible = -1
+
+[node name="background" type="Sprite" parent="."]
+
+transform/pos = Vector2( 384, 320 )
+transform/scale = Vector2( 4, 4 )
+z/z = -1
+texture = ExtResource( 2 )
+
+[node name="plateau_4" parent="." instance=ExtResource( 3 )]
+
+transform/scale = Vector2( 4, 4 )
+z/z = -1
+
+[node name="campfire" type="Node2D" parent="."]
+
+[node name="campfire_sprite" type="Sprite" parent="campfire"]
+
+transform/pos = Vector2( 352, 416 )
+transform/scale = Vector2( 4, 4 )
+texture = ExtResource( 4 )
+hframes = 4
+frame = 1
+
+[node name="campfire_anim" type="AnimationPlayer" parent="campfire"]
+
+playback/process_mode = 1
+playback/default_blend_time = 0.0
+root/root = NodePath("..")
+anims/fire = SubResource( 1 )
+playback/active = true
+playback/speed = 1.0
+blend_times = [  ]
+autoplay = "fire"
 
 [connection signal="pressed" from="startbutton" to="startbutton" method="_on_startbutton_pressed"]
 

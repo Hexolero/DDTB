@@ -1,0 +1,32 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://room.gd" type="Script" id=1]
+[ext_resource path="res://tilesets/terrain_tileset.xml" type="TileSet" id=2]
+
+[node name="plateau_4" type="Node2D"]
+
+script/script = ExtResource( 1 )
+TL = 0
+TR = 0
+BL = 1
+BR = 1
+
+[node name="TileMap" type="TileMap" parent="."]
+
+mode = 0
+tile_set = ExtResource( 2 )
+cell/size = Vector2( 16, 16 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( 458752, 1, 458753, 2, 458757, 0, 458758, 2, 458762, 0, 458763, 1, 524288, 4, 524289, 5, 524293, 3, 524294, 5, 524298, 3, 524299, 4, 589824, 7, 589825, 8, 589829, 6, 589830, 8, 589834, 6, 589835, 7 )
+
+

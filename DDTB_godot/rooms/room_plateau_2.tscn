@@ -1,0 +1,37 @@
+[gd_scene load_steps=4 format=1]
+
+[ext_resource path="res://room.gd" type="Script" id=1]
+[ext_resource path="res://tilesets/terrain_tileset.xml" type="TileSet" id=2]
+[ext_resource path="res://spike.tscn" type="PackedScene" id=3]
+
+[node name="plateau_2" type="Node2D"]
+
+script/script = ExtResource( 1 )
+TL = 0
+TR = 0
+BL = 1
+BR = 1
+
+[node name="TileMap" type="TileMap" parent="."]
+
+mode = 0
+tile_set = ExtResource( 2 )
+cell/size = Vector2( 16, 16 )
+cell/quadrant_size = 16
+cell/custom_transform = Matrix32( 1, 0, 0, 1, 0, 0 )
+cell/half_offset = 2
+cell/tile_origin = 0
+cell/y_sort = false
+collision/use_kinematic = false
+collision/friction = 1.0
+collision/bounce = 0.0
+collision/layers = 1
+collision/mask = 1
+occluder/light_mask = 1
+tile_data = IntArray( 262154, 9, 262155, 1, 327689, 9, 327690, 11, 327691, 4, 393224, 9, 393225, 11, 393226, 4, 393227, 4, 458752, 1, 458753, 2, 458756, 0, 458757, 1, 458758, 1, 458759, 1, 458760, 11, 458761, 4, 458762, 4, 458763, 4, 524288, 4, 524289, 5, 524292, 3, 524293, 4, 524294, 4, 524295, 4, 524296, 4, 524297, 4, 524298, 4, 524299, 4, 589824, 7, 589825, 8, 589828, 6, 589829, 7, 589830, 7, 589831, 7, 589832, 7, 589833, 7, 589834, 7, 589835, 7 )
+
+[node name="spike" parent="." instance=ExtResource( 3 )]
+
+transform/pos = Vector2( 104, 104 )
+
+

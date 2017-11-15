@@ -1,9 +1,71 @@
-[gd_scene load_steps=2 format=1]
+[gd_scene load_steps=6 format=1]
 
 [ext_resource path="res://root_manager.gd" type="Script" id=1]
+[ext_resource path="res://character.tscn" type="PackedScene" id=2]
+[ext_resource path="res://rooms/room_plateau.tscn" type="PackedScene" id=3]
+[ext_resource path="res://rooms/room_empty.tscn" type="PackedScene" id=4]
+[ext_resource path="res://images/night_background.tex" type="Texture" id=5]
 
 [node name="root" type="Node"]
 
 script/script = ExtResource( 1 )
+
+[node name="character" parent="." instance=ExtResource( 2 )]
+
+transform/pos = Vector2( 59, 80 )
+
+[node name="game_camera" type="Camera2D" parent="."]
+
+transform/pos = Vector2( 96, 80 )
+anchor_mode = 1
+rotating = false
+current = true
+zoom = Vector2( 0.25, 0.25 )
+limit/left = -10000000
+limit/top = -10000000
+limit/right = 10000000
+limit/bottom = 10000000
+drag_margin/h_enabled = true
+drag_margin/v_enabled = true
+smoothing/enable = false
+smoothing/speed = 5.0
+drag_margin/left = 0.2
+drag_margin/top = 0.2
+drag_margin/right = 0.2
+drag_margin/bottom = 0.2
+
+[node name="columns" type="Node2D" parent="."]
+
+[node name="column_1" type="Node2D" parent="columns"]
+
+[node name="b" parent="columns/column_1" instance=ExtResource( 3 )]
+
+[node name="m" parent="columns/column_1" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 0, -160 )
+
+[node name="t" parent="columns/column_1" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 0, -320 )
+
+[node name="column_2" type="Node2D" parent="columns"]
+
+transform/pos = Vector2( 192, 0 )
+
+[node name="b" parent="columns/column_2" instance=ExtResource( 3 )]
+
+[node name="m" parent="columns/column_2" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 0, -160 )
+
+[node name="t" parent="columns/column_2" instance=ExtResource( 4 )]
+
+transform/pos = Vector2( 0, -320 )
+
+[node name="background" type="Sprite" parent="."]
+
+transform/pos = Vector2( 96, 80 )
+z/z = -1
+texture = ExtResource( 5 )
 
 
