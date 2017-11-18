@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=1]
+
+[ext_resource path="res://images/timer_clean.tex" type="Texture" id=1]
+[ext_resource path="res://timer.gd" type="Script" id=2]
+
+[node name="timer" type="Sprite" groups=[
+"timer",
+]]
+
+texture = ExtResource( 1 )
+vframes = 25
+script/script = ExtResource( 2 )
+
+

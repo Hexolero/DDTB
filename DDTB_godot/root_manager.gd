@@ -1,13 +1,11 @@
 extends Node
 
-enum game_states { INTRO, GAME, PAUSE }
-var current_state = INTRO
-
 const room_packedscenes = [preload("rooms/room_empty.tscn"), preload("rooms/room_plateau.tscn"), preload("rooms/room_plateau_2.tscn"), preload("rooms/room_plateau_3.tscn"), preload("rooms/room_plateau_4.tscn")]
 var room_corners = []
 var columns # stores containers of 3 rooms each
 
 var game_speed = 80 # multiplied into frame delta
+var game_over = false
 
 # represents the two middle-right corners of the 1x3 column of rooms that has been most recently generated
 # first element is BR corner, second element is TR corner
@@ -31,13 +29,6 @@ func _process(delta):
 			col.queue_free()
 			columns.remove_child(col)
 			spawn_new_rooms(col.get_pos().x + 192)
-
-func state_transition(message):
-	print("State Transition: " + message)
-	if message == "start_pressed" && current_state == INTRO:
-		#remove_child(startmenu)
-		#add_child(game)
-		current_state = GAME
 
 func spawn_new_rooms(h_adjustment):
 	var possible_rooms = []
@@ -76,5 +67,13 @@ func spawn_new_rooms(h_adjustment):
 	
 	print(chosen_rooms[0].get_name())
 
-func game_over():
+# this is where end of game cleanup occurs
+func death_landed():
+	# ignore multiple calls to this function
+	if game_over:
+		return
+	game_over = true
 	print("GAME OVER")
+	set_process(false)
+	
+	#get_tree().change_scene("res://game.tscn")
