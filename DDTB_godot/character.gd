@@ -24,7 +24,7 @@ func _process(delta):
 	if dead:
 		return
 	score += delta
-	get_tree().call_group(2, "score", "update_label", int(round(score * 100)))
+	get_tree().call_group(2, "score", "update_label", int(ceil(score * 100)))
 
 func _fixed_process(delta):
 	# skip usual update when player is dead
@@ -40,11 +40,16 @@ func _fixed_process(delta):
 	
 	#print(combo_timer)
 	# if able to jump, increment combo timer
-	if can_jump:
+	print(can_jump)
+	if can_jump && !in_air:
 		combo_timer += delta
 		get_tree().call_group(2, "timer", "update_frame", combo_timer / COMBO_TIMEOUT)
 		if combo_timer >= COMBO_TIMEOUT:
 			get_tree().call_group(2, "game_participants", "game_over")
+	
+	if get_pos().y >= 96:
+		get_tree().call_group(2, "game_participants", "game_over")
+		get_tree().call_group(2, "game_participants", "death_landed")
 	
 	# jump if able
 	if can_jump && (Input.is_key_pressed(KEY_W) || Input.is_key_pressed(KEY_UP)):
@@ -70,15 +75,18 @@ func _fixed_process(delta):
 	var motion = velocity * delta
 	motion = move(motion)
 	# lock x-axis position - note that this causes some small collision bugs at times
-	set_pos(Vector2(0, get_pos().y))
+	if !in_air:
+		set_pos(Vector2(0, get_pos().y))
 	
 	
-	if (is_colliding()):
+	if is_colliding():
 		var n = get_collision_normal()
 		var n_angle = n.angle()
 		
+		print(n_angle)
+		
 		# check if we're landing and animate accordingly
-		if n_angle >= 5*PI/8 && n_angle <= 11*PI/8 && in_air:
+		if (n_angle >= 5*PI/8 || n_angle <= -5*PI/8) && in_air:
 			anim_player.play("run")
 			in_air = false
 		
@@ -88,9 +96,12 @@ func _fixed_process(delta):
 		#move(motion)
 		
 		# check if normal is up (i.e, we are on the ground/colliding with it)
-		if n_angle >= 5*PI/8 && n_angle <= 11*PI/8:
+		if n_angle >= 5*PI/8 || n_angle <= -5*PI/8:
 			velocity.y = 0
+		if n_angle >= 15*PI/16 || n_angle <= -15*PI/16:
 			can_jump = true
+		else:
+			can_jump = false
 	else:
 		can_jump = false
 		# start falling if possible

@@ -23,6 +23,11 @@ func _ready():
 		room.queue_free()
 
 func _process(delta):
+	if game_over:
+		# restart
+		if Input.is_key_pressed(KEY_R):
+			get_tree().change_scene("res://startmenu.tscn")
+		return
 	columns.set_pos(columns.get_pos() - Vector2(game_speed * delta, 0))
 	for col in columns.get_children():
 		if col.get_global_pos().x <= -192:
@@ -74,6 +79,5 @@ func death_landed():
 		return
 	game_over = true
 	print("GAME OVER")
-	set_process(false)
 	
 	#get_tree().change_scene("res://game.tscn")

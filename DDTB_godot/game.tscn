@@ -2,9 +2,9 @@
 
 [ext_resource path="res://root_manager.gd" type="Script" id=1]
 [ext_resource path="res://character.tscn" type="PackedScene" id=2]
-[ext_resource path="res://rooms/room_plateau.tscn" type="PackedScene" id=3]
-[ext_resource path="res://rooms/room_empty.tscn" type="PackedScene" id=4]
-[ext_resource path="res://background.tscn" type="PackedScene" id=5]
+[ext_resource path="res://background.tscn" type="PackedScene" id=3]
+[ext_resource path="res://rooms/room_plateau.tscn" type="PackedScene" id=4]
+[ext_resource path="res://rooms/room_empty.tscn" type="PackedScene" id=5]
 [ext_resource path="res://timer.tscn" type="PackedScene" id=6]
 [ext_resource path="res://score.tscn" type="PackedScene" id=7]
 
@@ -19,9 +19,9 @@ script/script = ExtResource( 1 )
 transform/pos = Vector2( 56, 80 )
 z/z = 1
 
-[node name="game_camera" type="Camera2D" parent="."]
+[node name="game_camera" type="Camera2D" parent="character"]
 
-transform/pos = Vector2( 96, 80 )
+transform/pos = Vector2( 40, 0 )
 anchor_mode = 1
 rotating = false
 current = true
@@ -39,17 +39,21 @@ drag_margin/top = 0.2
 drag_margin/right = 0.2
 drag_margin/bottom = 0.2
 
+[node name="background_anim" parent="character/game_camera" instance=ExtResource( 3 )]
+
+z/z = -1
+
 [node name="columns" type="Node2D" parent="."]
 
 [node name="column_1" type="Node2D" parent="columns"]
 
-[node name="b" parent="columns/column_1" instance=ExtResource( 3 )]
+[node name="b" parent="columns/column_1" instance=ExtResource( 4 )]
 
-[node name="m" parent="columns/column_1" instance=ExtResource( 4 )]
+[node name="m" parent="columns/column_1" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 0, -160 )
 
-[node name="t" parent="columns/column_1" instance=ExtResource( 4 )]
+[node name="t" parent="columns/column_1" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 0, -320 )
 
@@ -57,20 +61,15 @@ transform/pos = Vector2( 0, -320 )
 
 transform/pos = Vector2( 192, 0 )
 
-[node name="b" parent="columns/column_2" instance=ExtResource( 3 )]
+[node name="b" parent="columns/column_2" instance=ExtResource( 4 )]
 
-[node name="m" parent="columns/column_2" instance=ExtResource( 4 )]
+[node name="m" parent="columns/column_2" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 0, -160 )
 
-[node name="t" parent="columns/column_2" instance=ExtResource( 4 )]
+[node name="t" parent="columns/column_2" instance=ExtResource( 5 )]
 
 transform/pos = Vector2( 0, -320 )
-
-[node name="background_anim" parent="." instance=ExtResource( 5 )]
-
-transform/pos = Vector2( 96, 80 )
-z/z = -1
 
 [node name="timer" parent="." instance=ExtResource( 6 )]
 

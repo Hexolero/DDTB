@@ -10,7 +10,6 @@ points = Vector2Array( -8, 8, -8, 0, 8, 0, 8, 8 )
 
 [node name="spike" type="Sprite"]
 
-transform/pos = Vector2( 8, 8 )
 texture = ExtResource( 1 )
 region = true
 region_rect = Rect2( 64, 0, 16, 16 )
